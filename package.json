@@ -1,6 +1,6 @@
 {
   "name": "bird-ui",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "vue components based on element-ui used by Shanghai Bird company",
   "main": "src/index.js",
   "repository": {
@@ -11,5 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "lixiaolong",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "crud-model-class": "0.0.6"
+  }
 }
