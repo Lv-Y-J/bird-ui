@@ -5,10 +5,13 @@
     el-table-column(v-if='!attr.hideInTable' v-for='attr in model' :label='attr.label' :key='attr.prop' :formatter='attr.formatter' :min-width='attr.minWidth||(attr.type=="image"?100:80)' :sortable='attr.sortable' :prop='attr.prop')
       template(slot-scope="scope")
         .cell-content
-          span(v-if='attr.type!="image" && attr.type!="url"' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]')
+          span(v-if='attr.type!="image" && attr.type!="url" && attr.type!="multi-image"' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]')
           a(v-if='attr.type=="url"' class="link-style" target='_blank' :href='scope.row[attr.prop]' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]' :title="attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]")
           a(v-if='attr.type=="image"' target='_blank' :href='scope.row[attr.prop]')
             img(:src='scope.row[attr.prop]')
+          template(v-if='attr.type=="multi-image"')
+            a.multi-image(v-for='src in scope.row[attr.prop].split(",")' target='_blank' :href='src')
+              img(:src='src')
 </template>
 
 <script>
