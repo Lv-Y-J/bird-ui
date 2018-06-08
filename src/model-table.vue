@@ -12,6 +12,9 @@
           template(v-if='attr.type=="multi-image"')
             a.multi-image(v-for='src in scope.row[attr.prop].split(",")' target='_blank' :href='src')
               img(:src='src')
+    el-table-column(v-if='rowOpers' fixed="right" label="操作" :min-width='operWidth||"110px"')
+      template(slot-scope="scope")
+        el-button(v-for='(oper, $index) in rowOpers' :key='$index' size='small' :type='oper.type||"primary"' @click='oper.handler(scope.row)' v-if='!oper.hide || !oper.hide(scope.row)') {{(typeof oper.text == 'function')?oper.text(scope.row):oper.text}}
 </template>
 
 <script>
@@ -22,6 +25,8 @@ export default {
     'data',
     'modelSrc',
     'hasIndex', //是否有序号列
+    'operWidth',
+    'rowOpers', //行内自定义操作按钮
   ],
   data() {
     return {
