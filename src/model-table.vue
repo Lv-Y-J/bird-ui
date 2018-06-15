@@ -14,7 +14,7 @@
               img(:src='src')
     el-table-column(v-if='rowOpers' fixed="right" label="操作" :min-width='operWidth||"110px"')
       template(slot-scope="scope")
-        el-button(v-for='(oper, $index) in rowOpers' :key='$index' size='small' :type='oper.type||"primary"' @click='oper.handler(scope.row)' v-if='!oper.hide || !oper.hide(scope.row)') {{(typeof oper.text == 'function')?oper.text(scope.row):oper.text}}
+        el-button(v-for='(oper, $index) in rowOpers' :key='$index' size='small' :type='oper.type||"primary"' @click='oper.handler(JSON.parse(JSON.stringify(scope.row)))' v-if='!oper.hide || !oper.hide(scope.row)') {{(typeof oper.text == 'function')?oper.text(scope.row):oper.text}}
 </template>
 
 <script>
