@@ -7,11 +7,11 @@
         .cell-content
           span(v-if='attr.type!="image" && attr.type!="url" && attr.type!="multi-image"' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]')
           a(v-if='attr.type=="url"' class="link-style" target='_blank' :href='scope.row[attr.prop]' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]' :title="attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]")
-          a(v-if='attr.type=="image"' target='_blank' :href='scope.row[attr.prop]')
+          viewer(v-if='attr.type == "image"' :images='[scope.row[attr.prop]]')
             img(:src='scope.row[attr.prop]')
           template(v-if='attr.type=="multi-image" && scope.row[attr.prop]!=null')
-            a.multi-image(v-for='src in scope.row[attr.prop].split(",")' target='_blank' :href='src')
-              img(:src='src')
+            viewer.multi-image(:images='scope.row[attr.prop].split(",")')
+              img(v-for='src in scope.row[attr.prop].split(",")' :src='src')
     el-table-column(v-if='rowOpers' fixed="right" label="操作" :min-width='operWidth||"110px"')
       template(slot-scope="scope")
         el-button(v-for='(oper, $index) in rowOpers' :key='$index' size='small' :type='oper.type||"primary"' @click='oper.handler(JSON.parse(JSON.stringify(scope.row)))' v-if='!oper.hide || !oper.hide(scope.row)') {{(typeof oper.text == 'function')?oper.text(scope.row):oper.text}}
