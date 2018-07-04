@@ -1,6 +1,6 @@
 <template lang='pug'>
   //- 根据模型生成简单的表格（无分页/操作按钮等）
-  el-table(:data='data' border='')
+  el-table(:data='data' border='' :span-method='spanMethod')
     el-table-column(type='index' width='36' v-if='hasIndex')
     el-table-column(v-if='!attr.hideInTable' v-for='attr in model' :label='attr.label' :key='attr.prop' :formatter='attr.formatter' :min-width='attr.minWidth||(attr.type=="image"?100:80)' :sortable='attr.sortable' :prop='attr.prop')
       template(slot-scope="scope")
@@ -27,6 +27,7 @@ export default {
     'hasIndex', //是否有序号列
     'operWidth',
     'rowOpers', //行内自定义操作按钮
+    'spanMethod', //合并行或列
   ],
   data() {
     return {
