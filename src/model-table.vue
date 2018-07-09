@@ -5,10 +5,11 @@
     el-table-column(v-if='!attr.hideInTable' v-for='attr in model' :label='attr.label' :key='attr.prop' :formatter='attr.formatter' :min-width='attr.minWidth||(attr.type=="image"?100:80)' :sortable='attr.sortable' :prop='attr.prop')
       template(slot-scope="scope")
         .cell-content
-          span(v-if='attr.type!="image" && attr.type!="url" && attr.type!="multi-image"' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]')
+          span(v-if='!["image", "url", "multi-image", "star"].includes(attr.type)' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]')
           a(v-if='attr.type=="url"' class="link-style" target='_blank' :href='scope.row[attr.prop]' v-text='attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]' :title="attr.formatter?attr.formatter(scope.row, attr.prop, scope.row[attr.prop]):scope.row[attr.prop]")
           viewer(v-if='attr.type == "image"' :images='[scope.row[attr.prop]]')
             img(:src='scope.row[attr.prop]')
+          star-select(v-if='attr.type=="star"' :value='scope.row[attr.prop]' disabled)
           template(v-if='attr.type=="multi-image" && scope.row[attr.prop]!=null')
             viewer.multi-image(:images='scope.row[attr.prop].split(",")')
               img(v-for='src in scope.row[attr.prop].split(",")' :src='src')
@@ -19,8 +20,12 @@
 
 <script>
 import Model from 'crud-model-class'
+import StarSelect from './star-select.vue'
 
 export default {
+  components: {
+    StarSelect
+  },
   props: [
     'data',
     'modelSrc',
