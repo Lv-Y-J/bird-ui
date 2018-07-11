@@ -27,6 +27,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.detail
+.stars, .detail
   text-align center
 </style>
