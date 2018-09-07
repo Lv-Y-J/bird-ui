@@ -1,6 +1,6 @@
 {
   "name": "bird-ui",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "vue components based on element-ui used by Shanghai Bird company",
   "main": "src/index.js",
   "repository": {
