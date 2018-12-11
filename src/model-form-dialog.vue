@@ -5,6 +5,7 @@
     @date 2018/6/15
   el-dialog(:title='title' :visible.sync='myVisible' :close-on-click-modal='false' :width='width')
     model-form(v-bind='$props' ref='form')
+    .tip(v-if='tip') {{tip}}
     .btns(slot='footer')
       el-button(v-if='!hideSave' type='primary' @click='save') 保存
       el-button(@click='myVisible = false') {{hideSave?'关闭':'取消'}}
@@ -42,6 +43,7 @@ export default {
     title: String,
     visible: Boolean,
     width: String,
+    tip: String,
   },
   methods: {
     save() {
